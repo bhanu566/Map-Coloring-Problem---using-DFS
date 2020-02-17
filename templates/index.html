@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-core.min.js" type="text/javascript"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-map.min.js" type="text/javascript"></script>
+    <script src="https://cdn.anychart.com/geodata/1.2.0/countries/australia/australia.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.15/proj4.js"></script>
+    <style>
+      html, body, #container {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+position: absolute;
+      }
+    #container2 {
+    position: absolute;
+    }
+    </style>
+  </head>
+  <body>
+
+
+    <div id="container">
+
+    </div>
+      <div id="container2">
+     <h1>{{title}}</h1>
+    </div>
+    <script>
+anychart.onDocumentReady(function () {
+
+
+
+    var map = anychart.map();
+    map.geoData(anychart.maps.australia);
+
+
+         var a = {{ a | tojson }};
+    var c={{ c | tojson }};
+     var z={{ z | tojson }};
+    var d=JSON.parse(a);
+    var e=JSON.parse(c);
+      var z1=JSON.parse(z);
+    console.log(d)
+    console.log(e)
+var i = -1
+
+ function changeColor (ss,cc,nn) {
+  firstDataSet.row(0, {id: ss,fill: cc ,name: nn});
+}
+
+     var myInteraval= setInterval(function(){
+        i=++i;
+        console.log(i);
+         var data_2 = [{id: d[i], fill: e[i] ,name:z1[i]}];
+
+         if (i>0 && (d[i]==d[i-1]))
+             {
+                changeColor(d[i],e[i],z1[i])
+             }
+         else
+             {
+               firstDataSet = anychart.data.set(data_2);
+          var secondSeries = map.choropleth(firstDataSet);
+                  secondSeries.labels()
+                .enabled(true)
+                .padding(1)
+                .format(data_2.name);
+          secondSeries.fill(e[i]);
+           map.container("container");
+    map.draw();
+             }
+
+
+
+    if(i == d.length){
+    foo();
+    }
+
+     }, 1000);
+
+
+var foo = function () {
+    clearInterval(myInteraval);
+};
+
+
+});
+    </script>
+  </body>
+</html>
