@@ -9,3 +9,6 @@ There are two ways of using this alogorithms 1. With Heuristics 2. Without Heuri
 Six python files are created for each country.
 
 ![Australia Map Coloring DFS without heuristic](demo/dfs_without_heuristic.gif)
+
+
+![USA Map Coloring Forward Checking with heuristic](demo/fc_without_h.gif)
